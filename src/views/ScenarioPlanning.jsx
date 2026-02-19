@@ -4,9 +4,11 @@ import {
   Bar,
   XAxis,
   YAxis,
+  CartesianGrid,
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
+import LollipopBar from '../components/LollipopBar';
 import KPICard from '../components/KPICard';
 import Badge from '../components/Badge';
 import { fmt } from '../utils/formatters';
@@ -137,22 +139,24 @@ export default function ScenarioPlanning({ positions, filters }) {
         <div style={{ background: '#FFFFFF', borderRadius: 8, padding: 20, border: '1px solid #CECECE', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
           <h3 style={{ fontFamily: 'Nunito Sans', fontWeight: 700, fontSize: 18, marginBottom: 16 }}>Impact by Branch</h3>
           <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={byBranch}>
+            <BarChart data={byBranch} margin={{ top: 20, right: 24, left: 0, bottom: 5 }} barSize={28} barCategoryGap="40%" barGap={8}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
               <XAxis dataKey="name" tick={{ fontSize: 12 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="value" fill={CHART_COLORS[7]} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="value" fill={CHART_COLORS[7]} shape={(p) => <LollipopBar {...p} dataKey="value" format="number" />} />
             </BarChart>
           </ResponsiveContainer>
         </div>
         <div style={{ background: '#FFFFFF', borderRadius: 8, padding: 20, border: '1px solid #CECECE', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
           <h3 style={{ fontFamily: 'Nunito Sans', fontWeight: 700, fontSize: 18, marginBottom: 16 }}>Impact by Classification</h3>
           <ResponsiveContainer width="100%" height={200}>
-            <BarChart data={byClassification}>
+            <BarChart data={byClassification} margin={{ top: 20, right: 24, left: 0, bottom: 5 }} barSize={28} barCategoryGap="40%" barGap={8}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
               <XAxis dataKey="name" tick={{ fontSize: 12 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="value" fill={CHART_COLORS[5]} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="value" fill={CHART_COLORS[5]} shape={(p) => <LollipopBar {...p} dataKey="value" format="number" />} />
             </BarChart>
           </ResponsiveContainer>
         </div>

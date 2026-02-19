@@ -7,9 +7,11 @@ import {
   Bar,
   XAxis,
   YAxis,
+  CartesianGrid,
   ResponsiveContainer,
   Tooltip,
 } from 'recharts';
+import LollipopBar from '../components/LollipopBar';
 import Badge from '../components/Badge';
 import { filterPositions } from '../utils/filters';
 import { CHART_COLORS } from '../theme';
@@ -118,11 +120,12 @@ export default function WorkforcePlanning({ positions, filters }) {
         <div style={{ background: '#FFFFFF', borderRadius: 8, padding: 20, border: '1px solid #CECECE', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
           <h3 style={{ fontFamily: 'Nunito Sans', fontWeight: 700, fontSize: 18, marginBottom: 16 }}>Geographic Distribution</h3>
           <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={regionData} margin={{ left: 0 }}>
+            <BarChart data={regionData} margin={{ top: 20, right: 24, left: 0, bottom: 5 }} barSize={28} barCategoryGap="40%" barGap={8}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
               <XAxis dataKey="name" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="value" fill={CHART_COLORS[0]} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="value" fill={CHART_COLORS[0]} shape={(p) => <LollipopBar {...p} dataKey="value" format="number" />} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -132,11 +135,12 @@ export default function WorkforcePlanning({ positions, filters }) {
         <div style={{ background: '#FFFFFF', borderRadius: 8, padding: 20, border: '1px solid #CECECE', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
           <h3 style={{ fontFamily: 'Nunito Sans', fontWeight: 700, fontSize: 18, marginBottom: 16 }}>Language Profile Distribution</h3>
           <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={languageData} margin={{ left: 0 }}>
+            <BarChart data={languageData} margin={{ top: 20, right: 24, left: 0, bottom: 5 }} barSize={28} barCategoryGap="40%" barGap={8}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
               <XAxis dataKey="name" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="value" fill={CHART_COLORS[1]} radius={[4, 4, 0, 0]} />
+              <Bar dataKey="value" fill={CHART_COLORS[1]} shape={(p) => <LollipopBar {...p} dataKey="value" format="number" />} />
             </BarChart>
           </ResponsiveContainer>
         </div>

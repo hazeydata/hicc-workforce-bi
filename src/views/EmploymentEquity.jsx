@@ -12,6 +12,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import LollipopBar from '../components/LollipopBar';
 import KPICard from '../components/KPICard';
 import { filterPositions } from '../utils/filters';
 import { CLASSIFICATION_GROUPS } from '../data/generateData';
@@ -159,16 +160,16 @@ export default function EmploymentEquity({ positions, filters }) {
         <div style={{ background: '#FFFFFF', borderRadius: 8, padding: 20, border: '1px solid #CECECE', boxShadow: '0 1px 3px rgba(0,0,0,0.08)' }}>
           <h3 style={{ fontFamily: 'Nunito Sans', fontWeight: 700, fontSize: 18, marginBottom: 16 }}>EE Representation by Branch</h3>
           <ResponsiveContainer width="100%" height={220}>
-            <BarChart data={eeByBranch} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E0E0E0" />
+            <BarChart data={eeByBranch} margin={{ top: 20, right: 24, left: 0, bottom: 5 }} barSize={28} barCategoryGap="40%" barGap={8}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
               <XAxis dataKey="branch" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 12 }} domain={[0, 60]} />
               <Tooltip />
               <Legend />
-              <Bar dataKey="Women %" fill={CHART_COLORS[0]} radius={[0, 0, 0, 0]} />
-              <Bar dataKey="VM %" fill={CHART_COLORS[1]} radius={[0, 0, 0, 0]} />
-              <Bar dataKey="Indigenous %" fill={CHART_COLORS[2]} radius={[0, 0, 0, 0]} />
-              <Bar dataKey="Disability %" fill={CHART_COLORS[3]} radius={[0, 0, 0, 0]} />
+              <Bar dataKey="Women %" name="Women %" fill={CHART_COLORS[0]} shape={(p) => <LollipopBar {...p} dataKey="Women %" format="percent" />} />
+              <Bar dataKey="VM %" name="VM %" fill={CHART_COLORS[1]} shape={(p) => <LollipopBar {...p} dataKey="VM %" format="percent" />} />
+              <Bar dataKey="Indigenous %" name="Indigenous %" fill={CHART_COLORS[2]} shape={(p) => <LollipopBar {...p} dataKey="Indigenous %" format="percent" />} />
+              <Bar dataKey="Disability %" name="Disability %" fill={CHART_COLORS[3]} shape={(p) => <LollipopBar {...p} dataKey="Disability %" format="percent" />} />
             </BarChart>
           </ResponsiveContainer>
         </div>
