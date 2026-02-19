@@ -1,0 +1,16 @@
+:root {
+  font-family: 'Nunito Sans', Calibri, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #252525;
+  background-color: #F5F5F5;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
