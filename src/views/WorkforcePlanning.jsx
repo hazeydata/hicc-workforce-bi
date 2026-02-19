@@ -13,6 +13,7 @@ import {
 import Badge from '../components/Badge';
 import { filterPositions } from '../utils/filters';
 import { CHART_COLORS } from '../theme';
+import { ORG_HIERARCHY } from '../data/generateData';
 
 const REF_DATE = '2026-02-19';
 const TWELVE_MONTHS_MS = 365 * 24 * 60 * 60 * 1000;
@@ -37,6 +38,12 @@ export default function WorkforcePlanning({ positions, filters }) {
   );
 
   const occupied = filteredPositions.filter(p => p.occupancyStatus !== 'Vacant');
+
+  const dirNameMap = useMemo(() => {
+    const m = {};
+    ORG_HIERARCHY.forEach(r => { m[r.directorateCode] = r.directorateName; });
+    return m;
+  }, []);
 
   const tenureData = useMemo(() => {
     const m = {};
@@ -115,7 +122,7 @@ export default function WorkforcePlanning({ positions, filters }) {
               <XAxis dataKey="name" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="value" fill={CHART_COLORS[0]} radius={[0, 4, 4, 0]} />
+              <Bar dataKey="value" fill={CHART_COLORS[0]} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -129,7 +136,7 @@ export default function WorkforcePlanning({ positions, filters }) {
               <XAxis dataKey="name" tick={{ fontSize: 11 }} />
               <YAxis tick={{ fontSize: 12 }} />
               <Tooltip />
-              <Bar dataKey="value" fill={CHART_COLORS[1]} radius={[0, 4, 4, 0]} />
+              <Bar dataKey="value" fill={CHART_COLORS[1]} radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -175,7 +182,7 @@ export default function WorkforcePlanning({ positions, filters }) {
                   <td style={{ padding: 10 }}>{row.incumbentName ?? '—'}</td>
                   <td style={{ padding: 10 }}>{row.tenureType ?? '—'}</td>
                   <td style={{ padding: 10, color: '#FEC04F' }}>{row.endDate ?? '—'}</td>
-                  <td style={{ padding: 10 }}>{row.directorateCode}</td>
+                  <td style={{ padding: 10 }}>{dirNameMap[row.directorateCode] || row.directorateCode}</td>
                   <td style={{ padding: 10 }}>
                     <Badge variant={row.fundingSource === 'Sunset' ? 'sunset' : 'aBase'}>{row.fundingSource}</Badge>
                   </td>
@@ -207,7 +214,7 @@ export default function WorkforcePlanning({ positions, filters }) {
                   </td>
                   <td style={{ padding: 10 }}>{row.incumbentName ?? '—'}</td>
                   <td style={{ padding: 10, color: '#AF3C43' }}>{row.fundingSunsetDate ?? '—'}</td>
-                  <td style={{ padding: 10 }}>{row.directorateCode}</td>
+                  <td style={{ padding: 10 }}>{dirNameMap[row.directorateCode] || row.directorateCode}</td>
                 </tr>
               ))}
             </tbody>

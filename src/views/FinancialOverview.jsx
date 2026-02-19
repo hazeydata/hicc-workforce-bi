@@ -28,7 +28,7 @@ export default function FinancialOverview({ positions, financeData, filters }) {
   const totalBudget = filteredFinance.reduce((s, f) => s + f.budget, 0);
   const totalForecast = filteredFinance.reduce((s, f) => s + f.forecast, 0);
   const totalActuals = filteredFinance.reduce((s, f) => s + f.actuals, 0);
-  const surplusDeficit = totalForecast - totalBudget;
+  const surplusDeficit = totalBudget - totalForecast;
   const surplusColor = surplusDeficit >= 0 ? '#92CC6F' : '#AF3C43';
 
   const byVoteType = useMemo(() => {
@@ -124,7 +124,7 @@ export default function FinancialOverview({ positions, financeData, filters }) {
         </div>
       </div>
 
-      <div style={{ background: '#FFFFFF', borderRadius: 8, border: '1px solid #CECECE', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', overflow: 'auto' }}>
+      <div style={{ background: '#FFFFFF', borderRadius: 8, border: '1px solid #CECECE', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', overflow: 'auto', maxHeight: 500 }}>
         <h3 style={{ fontFamily: 'Nunito Sans', fontWeight: 700, fontSize: 18, margin: 16, marginBottom: 8 }}>Integrated Salary Analysis</h3>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, fontFamily: 'Nunito Sans' }}>
           <thead>

@@ -201,7 +201,7 @@ export default function ExecutiveSummary({ positions, financeData, filters }) {
           </thead>
           <tbody>
             {filteredFinance.map((row, i) => {
-              const surplus = row.forecast - row.budget;
+              const surplus = row.budget - row.forecast;
               const burn = row.forecast > 0 ? (row.actuals / row.forecast) * 100 : 0;
               const surplusColor = surplus >= 0 ? '#92CC6F' : '#AF3C43';
               const burnColor = burn > 85 ? '#AF3C43' : burn >= 70 ? '#FEC04F' : '#92CC6F';

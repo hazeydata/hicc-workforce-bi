@@ -78,7 +78,7 @@ export default function Header({
           <option value="">All Branches</option>
           {BRANCHES.map(b => (
             <option key={b.branchCode} value={b.branchCode}>
-              {b.branchCode}
+              {b.branchCode} — {b.branchName}
             </option>
           ))}
         </select>

@@ -59,8 +59,8 @@ export default function PositionExplorer({ positions, filters }) {
   const occupied = filteredPositions.filter(p => p.occupancyStatus !== 'Vacant');
   const vacant = filteredPositions.filter(p => p.occupancyStatus === 'Vacant');
   const totalSalary = useMemo(
-    () => filteredPositions.reduce((s, p) => s + (p.salary || 0), 0),
-    [filteredPositions]
+    () => occupied.reduce((s, p) => s + (p.salary || 0), 0),
+    [occupied]
   );
 
   const classificationByGroup = useMemo(() => {
@@ -84,10 +84,10 @@ export default function PositionExplorer({ positions, filters }) {
   const sorted = useMemo(() => {
     const arr = [...filteredPositions];
     arr.sort((a, b) => {
-      let va = a[sortKey];
-      let vb = b[sortKey];
-      if (typeof va === 'string') va = va ?? '';
-      if (typeof vb === 'string') vb = vb ?? '';
+      let va = sortKey === 'location' ? (a.location?.city ?? '') : a[sortKey];
+      let vb = sortKey === 'location' ? (b.location?.city ?? '') : b[sortKey];
+      if (va == null) va = '';
+      if (vb == null) vb = '';
       if (typeof va === 'number' && typeof vb === 'number') return sortDir * (va - vb);
       return sortDir * String(va).localeCompare(String(vb));
     });
@@ -118,12 +118,18 @@ export default function PositionExplorer({ positions, filters }) {
 
       </div>
 
+      {filters.branch && (
+        <p style={{ fontSize: 14, color: '#666666', marginBottom: 12 }}>
+          Filtered globally to: {BRANCHES.find(b => b.branchCode === filters.branch)?.branchName ?? filters.branch}
+        </p>
+      )}
       <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginBottom: 24 }}>
         <input
           type="text"
           placeholder="Search position ID, title, incumbent, classification..."
           value={search}
           onChange={e => { setSearch(e.target.value); setPage(1); }}
+          aria-label="Search positions"
           style={{
             border: '1px solid #CECECE',
             borderRadius: 4,
@@ -136,6 +142,7 @@ export default function PositionExplorer({ positions, filters }) {
         <select
           value={occupancyFilter}
           onChange={e => { setOccupancyFilter(e.target.value); setPage(1); }}
+          aria-label="Filter by occupancy status"
           style={{ border: '1px solid #CECECE', borderRadius: 4, padding: '8px 12px', fontSize: 14, fontFamily: 'Nunito Sans', minWidth: 140 }}
         >
           <option value="">All Status</option>
@@ -146,6 +153,7 @@ export default function PositionExplorer({ positions, filters }) {
         <select
           value={classificationFilter}
           onChange={e => { setClassificationFilter(e.target.value); setPage(1); }}
+          aria-label="Filter by classification group"
           style={{ border: '1px solid #CECECE', borderRadius: 4, padding: '8px 12px', fontSize: 14, fontFamily: 'Nunito Sans', minWidth: 140 }}
         >
           <option value="">All Classifications</option>
@@ -156,6 +164,7 @@ export default function PositionExplorer({ positions, filters }) {
         <select
           value={fundingFilter}
           onChange={e => { setFundingFilter(e.target.value); setPage(1); }}
+          aria-label="Filter by funding source"
           style={{ border: '1px solid #CECECE', borderRadius: 4, padding: '8px 12px', fontSize: 14, fontFamily: 'Nunito Sans', minWidth: 120 }}
         >
           <option value="">All Funding</option>
@@ -167,6 +176,7 @@ export default function PositionExplorer({ positions, filters }) {
         <select
           value={branchFilter}
           onChange={e => { setBranchFilter(e.target.value); setPage(1); }}
+          aria-label="Filter by branch"
           style={{ border: '1px solid #CECECE', borderRadius: 4, padding: '8px 12px', fontSize: 14, fontFamily: 'Nunito Sans', minWidth: 120 }}
         >
           <option value="">All Branches</option>
