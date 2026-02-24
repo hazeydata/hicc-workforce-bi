@@ -20,8 +20,8 @@ export default function LollipopBar(props) {
           : '—';
   const cx = x + width / 2;
   const stemBottom = y + height;
-  const pillWidth = Math.max(40, Math.min(56, label.length * 7));
-  const pillHeight = 26;
+  const pillWidth = Math.max(52, Math.min(72, label.length * 9));
+  const pillHeight = 32;
   const rx = pillHeight / 2;
   const pillLeft = cx - pillWidth / 2;
   const pillTop = y - pillHeight;
@@ -30,7 +30,7 @@ export default function LollipopBar(props) {
     <g>
       <line x1={cx} y1={stemBottom} x2={cx} y2={stemTop} stroke={fill} strokeWidth={2} />
       <rect x={pillLeft} y={pillTop} width={pillWidth} height={pillHeight} rx={rx} ry={rx} fill={fill} stroke="#fff" strokeWidth={1.5} />
-      <text x={cx} y={y - pillHeight / 2} textAnchor="middle" dominantBaseline="central" fill="#fff" fontSize={11} fontWeight={700} fontFamily="Nunito Sans">
+      <text x={cx} y={y - pillHeight / 2} textAnchor="middle" dominantBaseline="central" fill="#fff" fontSize={14} fontWeight={700} fontFamily="Nunito Sans">
         {label}
       </text>
     </g>

@@ -19,8 +19,13 @@ import WorkforcePlanning from './views/WorkforcePlanning';
 import ScenarioPlanning from './views/ScenarioPlanning';
 import EmploymentEquity from './views/EmploymentEquity';
 
+const ENABLED_TABS = ['executive', 'positions', 'financial', 'workforce', 'equity'];
+
 function App() {
   const [activeTab, setActiveTab] = useState('executive');
+
+  // Redirect if activeTab is disabled (e.g. scenario)
+  const safeActiveTab = ENABLED_TABS.includes(activeTab) ? activeTab : 'executive';
   const [filters, setFilters] = useState({ branch: null, directorate: null, division: null });
 
   const handleFilterChange = useCallback(updates => {
@@ -32,7 +37,7 @@ function App() {
   }, []);
 
   const renderView = () => {
-    switch (activeTab) {
+    switch (safeActiveTab) {
       case 'executive':
         return <ExecutiveSummary positions={POSITIONS} financeData={FINANCE_DATA} filters={filters} />;
       case 'positions':
@@ -53,7 +58,7 @@ function App() {
   return (
     <div style={{ minHeight: '100vh', background: '#F5F5F5' }}>
       <Header
-        activeTab={activeTab}
+        activeTab={safeActiveTab}
         onTabChange={setActiveTab}
         filters={filters}
         onFilterChange={handleFilterChange}

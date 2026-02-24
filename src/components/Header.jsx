@@ -6,7 +6,7 @@ const TABS = [
   { id: 'positions', label: 'Position Explorer' },
   { id: 'financial', label: 'Financial Overview' },
   { id: 'workforce', label: 'Workforce Planning' },
-  { id: 'scenario', label: 'Scenario Planning' },
+  { id: 'scenario', label: 'Scenario Planning', disabled: true }, // Future feature
   { id: 'equity', label: 'Employment Equity' },
 ];
 
@@ -165,17 +165,19 @@ export default function Header({
         {TABS.map(tab => (
           <button
             key={tab.id}
-            onClick={() => onTabChange(tab.id)}
+            onClick={() => !tab.disabled && onTabChange(tab.id)}
+            disabled={tab.disabled}
             style={{
               background: activeTab === tab.id ? '#002D42' : 'transparent',
-              color: activeTab === tab.id ? '#FFFFFF' : '#252525',
+              color: tab.disabled ? '#999999' : activeTab === tab.id ? '#FFFFFF' : '#252525',
               border: 'none',
               padding: '12px 24px',
               fontSize: 14,
               fontWeight: 700,
               fontFamily: 'Nunito Sans',
-              cursor: 'pointer',
+              cursor: tab.disabled ? 'not-allowed' : 'pointer',
               borderBottom: activeTab === tab.id ? '3px solid #137991' : '3px solid transparent',
+              opacity: tab.disabled ? 0.7 : 1,
             }}
           >
             {tab.label}

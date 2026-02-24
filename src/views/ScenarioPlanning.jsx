@@ -142,7 +142,7 @@ export default function ScenarioPlanning({ positions, filters }) {
             <BarChart data={byBranch} margin={{ top: 20, right: 24, left: 0, bottom: 5 }} barSize={28} barCategoryGap="40%" barGap={8}>
               <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
               <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} />
+              <YAxis tick={{ fontSize: 12 }} domain={[0, (Math.max(...byBranch.map(d => d.value), 0) || 1) * 1.1]} />
               <Tooltip />
               <Bar dataKey="value" fill={CHART_COLORS[7]} shape={(p) => <LollipopBar {...p} dataKey="value" format="number" />} />
             </BarChart>
@@ -154,7 +154,7 @@ export default function ScenarioPlanning({ positions, filters }) {
             <BarChart data={byClassification} margin={{ top: 20, right: 24, left: 0, bottom: 5 }} barSize={28} barCategoryGap="40%" barGap={8}>
               <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
               <XAxis dataKey="name" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} />
+              <YAxis tick={{ fontSize: 12 }} domain={[0, (Math.max(...byClassification.map(d => d.value), 0) || 1) * 1.1]} />
               <Tooltip />
               <Bar dataKey="value" fill={CHART_COLORS[5]} shape={(p) => <LollipopBar {...p} dataKey="value" format="number" />} />
             </BarChart>

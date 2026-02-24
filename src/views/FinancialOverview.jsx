@@ -103,7 +103,7 @@ export default function FinancialOverview({ positions, financeData, filters }) {
             <BarChart data={byVoteType} margin={{ top: 20, right: 24, left: 0, bottom: 5 }} barSize={28} barCategoryGap="40%" barGap={8}>
               <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
               <XAxis dataKey="voteType" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} tickFormatter={v => (v / 1e6).toFixed(1) + 'M'} />
+              <YAxis tick={{ fontSize: 12 }} tickFormatter={v => (v / 1e6).toFixed(1) + 'M'} domain={[0, (Math.max(...byVoteType.flatMap(d => [d.budget, d.forecast, d.actuals]), 0) || 1) * 1.1]} />
               <Tooltip formatter={v => fmtK(v)} />
               <Legend />
               <Bar dataKey="budget" name="Budget" fill={CHART_COLORS[0]} shape={(p) => <LollipopBar {...p} dataKey="budget" format="currency" />} />

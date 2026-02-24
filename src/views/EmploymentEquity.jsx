@@ -163,7 +163,7 @@ export default function EmploymentEquity({ positions, filters }) {
             <BarChart data={eeByBranch} margin={{ top: 20, right: 24, left: 0, bottom: 5 }} barSize={28} barCategoryGap="40%" barGap={8}>
               <CartesianGrid strokeDasharray="3 3" stroke="#F0F0F0" vertical={false} />
               <XAxis dataKey="branch" tick={{ fontSize: 11 }} />
-              <YAxis tick={{ fontSize: 12 }} domain={[0, 60]} />
+              <YAxis tick={{ fontSize: 12 }} domain={[0, Math.ceil((Math.max(...eeByBranch.flatMap(d => [d['Women %'], d['VM %'], d['Indigenous %'], d['Disability %']]), 0) || 60) * 1.1)]} />
               <Tooltip />
               <Legend />
               <Bar dataKey="Women %" name="Women %" fill={CHART_COLORS[0]} shape={(p) => <LollipopBar {...p} dataKey="Women %" format="percent" />} />
